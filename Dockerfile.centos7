@@ -7,7 +7,7 @@ USER 0
 ENV KIBANA_HOME=/usr/share/kibana \
     KIBANA_VER=6.2.1 \
     KIBANA_CONF=/etc/kibana \
-    KIBANA_DATA=/var/lib/kibana
+    KIBANA_DATA=/var/lib/kibana \
     HOME=/opt/app-root/src \
     KIBANA_SERVER_PORT=5601 \
     KIBANA_DEBUG=false \
