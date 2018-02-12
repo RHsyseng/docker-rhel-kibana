@@ -46,7 +46,7 @@ spec:
       - kibana
       from:
         kind: ImageStreamTag
-        name: kibana:6.2.1
+        name: kibana:6.1.2
     type: ImageChange
 ---
 apiVersion: v1
