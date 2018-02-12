@@ -7,6 +7,7 @@ USER 0
 ENV KIBANA_HOME=/usr/share/kibana \
     KIBANA_VER=6.2.1 \
     KIBANA_CONF=/etc/kibana \
+    KIBANA_DATA=/var/lib/kibana
     HOME=/opt/app-root/src \
     KIBANA_SERVER_PORT=5601 \
     KIBANA_DEBUG=false \
@@ -31,8 +32,8 @@ RUN yum install -y --setopt=tsflags=nodocs \
 COPY config/kibana.yml ${KIBANA_CONF}
 
 RUN chmod a+r -R ${KIBANA_HOME} && \
-    chmod a+w -R ${KIBANA_HOME}/optimize ${KIBANA_HOME}/plugins /var/lib/kibana
+    chmod a+w -R ${KIBANA_HOME}/optimize ${KIBANA_HOME}/plugins ${KIBANA_DATA}
 
 WORKDIR ${HOME}
 USER 999
-CMD ["sh", "-c", "${KIBANA_HOME}/bin/kibana --server.port=${KIBANA_SERVER_PORT} --elasticsearch.url=${ELASTICSEARCH_URL} --logging.verbose=${KIBANA_DEBUG}"]
+CMD ["sh", "-c", "${KIBANA_HOME}/bin/kibana --server.port=${KIBANA_SERVER_PORT} --elasticsearch.url=${ELASTICSEARCH_URL} --logging.verbose=${KIBANA_DEBUG}"] --path.data=${KIBANA_DATA}
