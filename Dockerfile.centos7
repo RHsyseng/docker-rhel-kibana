@@ -5,7 +5,7 @@ MAINTAINER OpenShift Development <dev@lists.openshift.redhat.com>
 USER 0
 
 ENV KIBANA_HOME=/usr/share/kibana \
-    KIBANA_VER=6.2.1 \
+    KIBANA_VER=6.1.2 \
     KIBANA_CONF=/etc/kibana \
     HOME=/opt/app-root/src \
     KIBANA_SERVER_PORT=5601 \
