@@ -1,0 +1,104 @@
+---
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: kibana
+  name: kibana
+spec:
+  replicas: 1
+  selector:
+    app: kibana
+    deploymentconfig: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+        deploymentconfig: kibana
+    spec:
+      containers:
+      - image: ' '
+        name: kibana
+        ports:
+        - containerPort: 5601
+          protocol: TCP
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /usr/share/kibana/optimize
+          name: kibana-shared
+          subPath: optimize
+        - mountPath: /usr/share/kibana/plugins
+          name: kibana-shared
+          subPath: plugins
+        - mountPath: /var/lib/kibana
+          name: kibana-shared
+          subPath: data
+      volumes:
+      - emptyDir: {}
+        name: kibana-shared
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - kibana
+      from:
+        kind: ImageStreamTag
+        name: kibana:6.2.1
+        namespace: openshift
+    type: ImageChange
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: kibana
+  name: kibana
+spec:
+  ports:
+  - name: web
+    port: 5601
+    protocol: TCP
+    targetPort: 5601
+  selector:
+    app: kibana
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Route
+metadata:
+  labels:
+    app: kibana
+  name: kibana
+spec:
+  port:
+    targetPort: web
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  to:
+    kind: Service
+    name: kibana
+---
+apiVersion: v1
+kind: ImageStream
+metadata:
+  name: kibana
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - name: 6.2.1
+    from:
+      kind: DockerImage
+      name: ruromero/openshift-kibana:6.2.1
+  - name: 6.1.2
+    from:
+      kind: DockerImage
+      name: ruromero/openshift-kibana:6.1.2
+  - name: 5.5.2
+    from:
+      kind: DockerImage
+      name: ruromero/openshift-kibana:5.5.2
