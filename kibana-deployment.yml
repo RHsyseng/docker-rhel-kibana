@@ -47,7 +47,6 @@ spec:
       from:
         kind: ImageStreamTag
         name: kibana:6.2.1
-        namespace: openshift
     type: ImageChange
 ---
 apiVersion: v1
@@ -85,6 +84,8 @@ spec:
 apiVersion: v1
 kind: ImageStream
 metadata:
+  labels:
+    app: kibana
   name: kibana
 spec:
   lookupPolicy:
