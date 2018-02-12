@@ -1,6 +1,6 @@
 # Kibana on OpenShift
 
-This images allows deploying [Kibana](https://www.elastic.co/guide/en/kibana/6.2) on OpenShift. Two images are provided:
+This images allows deploying [Kibana](https://www.elastic.co/guide/en/kibana/5.5) on OpenShift. Two images are provided:
 
  * [RHEL 7.3](./Dockerfile)
  * [CentOS 7](./Dockerfile.centos7)
