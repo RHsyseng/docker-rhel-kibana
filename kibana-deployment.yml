@@ -46,7 +46,7 @@ spec:
       - kibana
       from:
         kind: ImageStreamTag
-        name: kibana:6.2.1
+        name: kibana:5.5.2
     type: ImageChange
 ---
 apiVersion: v1
@@ -94,12 +94,12 @@ spec:
   - name: 6.2.1
     from:
       kind: DockerImage
-      name: ruromero/openshift-kibana:6.2.1
+      name: registry.centos.org/rhsyseng/kibana:6.2.1
   - name: 6.1.2
     from:
       kind: DockerImage
-      name: ruromero/openshift-kibana:6.1.2
+      name: registry.centos.org/rhsyseng/kibana:6.1.2
   - name: 5.5.2
     from:
       kind: DockerImage
-      name: ruromero/openshift-kibana:5.5.2
+      name: registry.centos.org/rhsyseng/kibana:5.5.2
